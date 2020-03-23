@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import {
   exposeHosts,
   initializeHosts,
+  exposeInfectSusceptible,
 } from "../actions/hosts";
 
 
@@ -50,8 +51,20 @@ class DashboardContainer extends React.Component {
     })
   }
   
+  endSimulation() {
+    if (this.simulationInterval !== undefined) {
+      clearInterval(this.simulationInterval);
+    }
+  }
+  
   startSimulation() {
-    console.log('starting simulation');
+    this.endSimulation();
+    this.simulationInterval = setInterval(
+      () => {
+        this.props.dispatch(exposeInfectSusceptible());
+      },
+      1000,
+    );
   }
   
   render() {
@@ -62,6 +75,7 @@ class DashboardContainer extends React.Component {
       hostIgnoreQuarantineInPercents={this.state.hostIgnoreQuarantineInPercents}
       setHostsIgnoreQuarantine={(value) => this.setHostsIgnoreQuarantine(value)}
       startSimulation={() => this.startSimulation()}
+      endSimulation={() => this.endSimulation()}
       plotStatusByTimeData={{ 0: [{ x: 1, y:2 }] }}
     />;
   }

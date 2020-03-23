@@ -20,9 +20,16 @@ class Main extends React.Component {
         <Row>
           <Col>
             <button
-              className="btn btn-danger btn-block"
+              className="btn btn-primary btn-block"
               onClick={() => this.props.startSimulation()}
             >Start pandemia</button>
+          </Col>
+  
+          <Col>
+            <button
+              className="btn btn-primary btn-block"
+              onClick={() => this.props.resetSimulation()}
+            >Reset</button>
           </Col>
         </Row>
       </div>
