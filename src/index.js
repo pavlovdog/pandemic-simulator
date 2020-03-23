@@ -4,12 +4,12 @@ import ReactDOM from 'react-dom';
 import Landing from './containers/Landing';
 import App from './containers/App';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from "react-router-dom";
 
 import {

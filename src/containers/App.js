@@ -26,7 +26,7 @@ class App extends React.Component {
     return (
       <Container fluid>
         <Row>
-          <Col style={ mapStyle }>
+          <Col style={ mapStyle } xs={8}>
             <Map/>
           </Col>
           <Col>

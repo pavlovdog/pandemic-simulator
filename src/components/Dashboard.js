@@ -4,6 +4,19 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink,
+  withRouter,
+} from "react-router-dom";
+
+
+import Main from './Tabs/Main';
+import Settings from './Tabs/Settings';
+import Details from './Tabs/Details';
+
 
 const separator = {
   textAlign: 'center',
@@ -18,92 +31,50 @@ class Dashboard extends React.Component {
       <Container>
         <Row style={separator}>
           <Col>
-            <h2>Pandemic simulator</h2>
+            <h1>Pandemic simulator</h1>
           </Col>
         </Row>
+
         <Row>
-          <Col>
-            <table className="table table-hover table-striped">
-              <thead className="thead-dark">
-                <tr>
-                  <th>Status</th>
-                  <th>Details</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row" className="bg-success">Susceptible</th>
-                  <td>Healthy, never been infected before.</td>
-                </tr>
-  
-                <tr>
-                  <th scope="row" className="bg-danger">Exposed</th>
-                  <td>These are carriers of the virus. Infects healthy people.</td>
-                </tr>
-      
-                <tr>
-                  <th scope="row" className="bg-warning">Infected</th>
-                  <td>Diagnosed with virus, staying in the hospitals. Can't infect no more.</td>
-                </tr>
-
-                <tr>
-                  <th scope="row" className="bg-light" style={{color: 'black'}}>Recovered</th>
-                  <td>Has acquired immunity from the virus. Can't infect no more.</td>
-                </tr>
-
-                <tr>
-                  <th scope="row" className="bg-dark">Dead</th>
-                  <td>💀 💀 💀</td>
-                </tr>
-              </tbody>
-            </table>
-            
+          <Col style={{'paddingBottom': '20px'}}>
+            <ul className="nav nav-pills">
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  activeclassname="active"
+                  to="/app/main">Main</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  activeclassname="active"
+                  to="/app/settings">Settings</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link"
+                  activeclassname="active"
+                  to="/app/details">Details</NavLink>
+              </li>
+            </ul>
           </Col>
         </Row>
   
-        <Row style={separator}>
-          <Col>
-            <h3>Settings</h3>
-          </Col>
-        </Row>
-  
-        <Row>
-          <Col>
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <button
-                  className="btn btn-danger"
-                  onClick={() => this.props.exposeHosts()}
-                  type="button">
-                  Expose people
-                </button>
-              </div>
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Specify percentage to expose, 10 by default"
-                aria-label=""
-                aria-describedby="basic-addon1"/>
-            </div>
-          </Col>
-          <Col>
-            <button
-              className="btn btn-dark btn-block"
-              onClick={() => this.props.startSimulation()}
-            >Run</button>
-          </Col>
-        </Row>
-  
-        <Row style={separator}>
-          <Col>
-            <h3>Start simulation</h3>
-
-          </Col>
-        </Row>
+        <Switch>
+          <Route path="/app/main">
+            <Main {...this.props}/>
+          </Route>
+          <Route path="/app/settings">
+            <Settings {...this.props}/>
+          </Route>
+          <Route path="/app/details">
+            <Details {...this.props}/>
+          </Route>
+        </Switch>
       </Container>
     );
   }
 }
 
 
-export default Dashboard;
+export default withRouter(Dashboard);

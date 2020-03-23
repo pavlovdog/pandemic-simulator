@@ -1,6 +1,4 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 
 import { connect } from 'react-redux';
 
@@ -21,7 +19,8 @@ class DashboardContainer extends React.Component {
     super(props);
     
     this.state = {
-      hostsToExposeInPercents: 10,
+      hostsToExposeInPercents: 2,
+      hostIgnoreQuarantineInPercents: 5,
     };
   }
   
@@ -39,25 +38,31 @@ class DashboardContainer extends React.Component {
   
   setHostsToExpose(hostsToExposeInPercents) {
     this.setState({
-      hostsToExposeInPercents: parseInt(hostsToExposeInPercents),
+      hostsToExposeInPercents: parseFloat(hostsToExposeInPercents),
     });
     
     this.exposeHosts();
   }
   
-  componentDidMount() {
-    // this.exposeHosts();
+  setHostsIgnoreQuarantine(hostIgnoreQuarantineInPercents) {
+    this.setState({
+      hostIgnoreQuarantineInPercents: parseFloat(hostIgnoreQuarantineInPercents),
+    })
   }
   
   startSimulation() {
-  
+    console.log('starting simulation');
   }
   
   render() {
     return <Dashboard
       exposeHosts={() => this.exposeHosts()}
+      hostsToExposeInPercents={this.state.hostsToExposeInPercents}
       setHostsToExpose={(value) => this.setHostsToExpose(value)}
+      hostIgnoreQuarantineInPercents={this.state.hostIgnoreQuarantineInPercents}
+      setHostsIgnoreQuarantine={(value) => this.setHostsIgnoreQuarantine(value)}
       startSimulation={() => this.startSimulation()}
+      plotStatusByTimeData={{ 0: [{ x: 1, y:2 }] }}
     />;
   }
 }
