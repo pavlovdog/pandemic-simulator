@@ -24,7 +24,7 @@ function Landing(props) {
                 </p>
                 
                 <div className="text-mono">
-                  <a href="/app"
+                  <a href="/app/main"
                      className="btn btn-primary btn-shadow px-3 my-2 ml-0 text-left"
                   >Run emulation</a>
                 </div>

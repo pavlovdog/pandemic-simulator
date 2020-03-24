@@ -6,6 +6,7 @@ import {
   exposeHosts,
   initializeHosts,
   exposeInfectSusceptible,
+  exposeBecomeInfect,
 } from "../actions/hosts";
 
 
@@ -25,14 +26,22 @@ class DashboardContainer extends React.Component {
     this.state = {
       hostsToExposeInPercents: 2,
       hostContacts: 5,
+      exposeDuration: 5,
       statusCounter: this.getInitialStatusCounter(),
     };
+    
+    this.simulationStep = 0;
   }
   
   getInitialStatusCounter() {
     return statusManager
       .getStatuses()
-      .reduce((acc, el) => Object.assign(acc, {[el]: []}), {});
+      .reduce((acc, el) => Object.assign(
+        acc,
+        {
+          [el]: []
+        }
+        ), {});
   }
   
   initializeStatusCounter() {
@@ -67,6 +76,13 @@ class DashboardContainer extends React.Component {
     })
   }
   
+  
+  setExposeDuration(exposeDuration) {
+    this.setState({
+      exposeDuration: parseInt(exposeDuration),
+    })
+  }
+  
   endSimulation() {
     if (this.simulationInterval !== undefined) {
       clearInterval(this.simulationInterval);
@@ -78,6 +94,8 @@ class DashboardContainer extends React.Component {
     this.props.dispatch(initializeHosts());
     this.exposeHosts();
     this.initializeStatusCounter();
+    
+    this.simulationStep = 0;
   }
   
   updateStatusCounterForStatus(status) {
@@ -118,9 +136,13 @@ class DashboardContainer extends React.Component {
   
   startSimulation() {
     this.endSimulation();
+
     this.simulationInterval = setInterval(
       () => {
-        this.props.dispatch(exposeInfectSusceptible(this.state.hostContacts));
+        this.props.dispatch(exposeInfectSusceptible(this.state.hostContacts, this.simulationStep));
+        this.props.dispatch(exposeBecomeInfect(10, this.simulationStep));
+        
+        this.simulationStep++;
       },
       1000,
     );
@@ -133,6 +155,8 @@ class DashboardContainer extends React.Component {
       setHostsToExpose={(value) => this.setHostsToExpose(value)}
       hostContacts={this.state.hostContacts}
       setHostContacts={(value) => this.setHostContacts(value)}
+      exposeDuration={this.state.exposeDuration}
+      setExposeDuration={(value) => this.setExposeDuration(value)}
       startSimulation={() => this.startSimulation()}
       resetSimulation={() => this.resetSimulation()}
       statusCounter={this.state.statusCounter}

@@ -12,10 +12,9 @@ class Main extends React.Component {
         <Row>
           <Col>
             <ul>
-              <li>Pandemic starts in <strong>New York</strong></li>
               <li>People wash hands <strong>sometimes</strong></li>
               <li>At the beginning <strong>{this.props.hostsToExposeInPercents}%</strong> of population is infected</li>
-              <li>Each person contacts <strong>{this.props.hostContacts} people</strong> per day</li>
+              <li>Each person is in contact with a maximum of <strong>{this.props.hostContacts} people</strong> per day</li>
             </ul>
           </Col>
         </Row>

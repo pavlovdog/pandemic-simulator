@@ -8,30 +8,6 @@ class Settings extends React.Component {
   render() {
     return (
       <div>
-
-        <Row>
-          <Col>
-            <form>
-              <div className="form-group">
-                <label htmlFor="pandemicStartsPoint">
-                  Where pandemic starts
-                </label>
-
-                <input
-                  type="text"
-                  className="form-control"
-                  id="pandemicStartsPoint"
-                  aria-describedby="pandemicStartsPoint"
-                  placeholder="Enter city name"/>
-
-                  <small
-                    id="pandemicStartsPoint"
-                    className="form-text text-muted"
-                  >For example "New York"</small>
-              </div>
-            </form>
-          </Col>
-        </Row>
         
         <Row>
           <Col>
@@ -59,9 +35,9 @@ class Settings extends React.Component {
         <Row>
           <Col>
             <div className="form-group">
-              <p htmlFor="hostsToExposeInPercents">
-                How many people infected at the beggining (<strong>{this.props.hostsToExposeInPercents}%</strong>)
-              </p>
+              <label htmlFor="hostsToExposeInPercents">
+                How many people exposed at the beggining (<strong>{this.props.hostsToExposeInPercents}%</strong>)
+              </label>
     
               <input
                 type="range"
@@ -83,9 +59,9 @@ class Settings extends React.Component {
         <Row>
           <Col>
             <div className="form-group">
-              <p htmlFor="hostsToExposeInPercents">
-                Average amount of contacts for person (<strong>{this.props.hostContacts} contacts</strong>)
-              </p>
+              <label htmlFor="hostContacts">
+                Maximum amount of contacts for person (<strong>{this.props.hostContacts} contacts</strong>)
+              </label>
     
               <input
                 type="range"
@@ -97,9 +73,33 @@ class Settings extends React.Component {
                 onChange={(e) => {
                   this.props.setHostContacts(e.target.value);
                 }}
-                id="hostsToExposeInPercents"
+                id="hostContacts"
               />
   
+            </div>
+          </Col>
+        </Row>
+  
+        <Row>
+          <Col>
+            <div className="form-group">
+              <label htmlFor="hostsToExposeInPercents">
+                Duration of incubate period (<strong>{this.props.exposeDuration} days</strong>)
+              </label>
+        
+              <input
+                type="range"
+                className="form-control custom-range"
+                min="1"
+                max="10"
+                step="1"
+                value={this.props.exposeDuration}
+                onChange={(e) => {
+                  this.props.setExposeDuration(e.target.value);
+                }}
+                id="hostsToExposeInPercents"
+              />
+      
             </div>
           </Col>
         </Row>
