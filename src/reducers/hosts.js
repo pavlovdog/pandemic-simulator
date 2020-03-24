@@ -10,6 +10,11 @@ const sphereKnn = require("sphere-knn");
 const lookup = sphereKnn(Hosts.map(host => [host.lat, host.lng]));
 
 
+function getRandomArbitrary(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
+}
+
+
 const coordinatesIndex = {};
 Hosts.map(({ lat, lng }, index) => {
   coordinatesIndex[lat] = coordinatesIndex[lat] === undefined ? {} : coordinatesIndex[lat];
@@ -43,11 +48,10 @@ const hostsReducer = (state = [], action) => {
       // Choose all exposed
       const exposed = state.filter(({ status }) => status === 1);
       
-      console.log(exposed.length);
-      
       // Draw circle around exposed and
-      exposed.map(e => {
-        const neighbours = lookup(e.lat, e.lng, 5);
+      exposed.forEach(e => {
+        const contacts = getRandomArbitrary(1, action.averageHostContacts);
+        const neighbours = lookup(e.lat, e.lng, contacts);
         const neighbooursIds = neighbours.map(([ lat, lng ]) => coordinatesIndex[lat][lng]);
         
         neighbooursIds.map(id => newState[id].status = 1);

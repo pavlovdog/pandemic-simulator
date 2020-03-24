@@ -1,7 +1,9 @@
 import React from "react";
+
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import PlotStatusByTime from "./PlotStatusByTime";
 
 class Main extends React.Component {
   render() {
@@ -12,8 +14,8 @@ class Main extends React.Component {
             <ul>
               <li>Pandemic starts in <strong>New York</strong></li>
               <li>People wash hands <strong>sometimes</strong></li>
-              <li>At the beginning <strong>50%</strong> of population is infected</li>
-              <li><strong>10%</strong> of population ignore quarantine</li>
+              <li>At the beginning <strong>{this.props.hostsToExposeInPercents}%</strong> of population is infected</li>
+              <li>Each person contacts <strong>{this.props.hostContacts} people</strong> per day</li>
             </ul>
           </Col>
         </Row>
@@ -22,7 +24,7 @@ class Main extends React.Component {
             <button
               className="btn btn-primary btn-block"
               onClick={() => this.props.startSimulation()}
-            >Start pandemia</button>
+            >Start pandemic</button>
           </Col>
   
           <Col>
@@ -30,6 +32,12 @@ class Main extends React.Component {
               className="btn btn-primary btn-block"
               onClick={() => this.props.resetSimulation()}
             >Reset</button>
+          </Col>
+        </Row>
+        
+        <Row>
+          <Col>
+            <PlotStatusByTime {...this.props}/>
           </Col>
         </Row>
       </div>

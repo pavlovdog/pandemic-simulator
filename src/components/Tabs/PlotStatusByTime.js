@@ -10,6 +10,8 @@ import {
 
 import 'react-vis/dist/style.css';
 
+import './../../../node_modules/react-vis/dist/style.css';
+
 import { StatusManager } from "../../config";
 
 const statusManager = new StatusManager();
@@ -17,13 +19,11 @@ const statusManager = new StatusManager();
 
 class PlotStatusByTime extends React.Component {
   render() {
-    console.log(this.props.data);
-    
     return (
-      <XYPlot width={500} height={200}>
-        <HorizontalGridLines style={{ stroke: '#B7E9ED' }} />
-        <VerticalGridLines style={{ stroke: '#B7E9ED' }} />
-        
+      <XYPlot width={500} height={200} styl={{paddingLeft: '40px'}}>
+        <HorizontalGridLines style={{stroke: '#B7E9ED'}} />
+        <VerticalGridLines style={{stroke: '#B7E9ED'}} />
+      
         <XAxis
           title="X Axis"
           style={{
@@ -41,8 +41,8 @@ class PlotStatusByTime extends React.Component {
           }}
         />
         <YAxis title="Y Axis" />
-        
-        
+      
+      
         {
           statusManager.getStatuses()
             .map(status => {
@@ -50,11 +50,11 @@ class PlotStatusByTime extends React.Component {
                 key={status}
                 stroke={statusManager.getHEXColor(status)}
                 className={`${status}-series`}
-                data={[]}
+                data={this.props.statusCounter[status]}
               />
             })
         }
-      
+    
       </XYPlot>
     );
   }

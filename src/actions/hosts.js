@@ -14,6 +14,7 @@ export const exposeHosts = (ids) => ({
 });
 
 
-export const exposeInfectSusceptible = () => ({
+export const exposeInfectSusceptible = (averageHostContacts) => ({
   type: hosts.EXPOSE_INFECT_SUSCEPTIBLE,
+  averageHostContacts,
 });

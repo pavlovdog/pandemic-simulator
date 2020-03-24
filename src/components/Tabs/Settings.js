@@ -84,18 +84,18 @@ class Settings extends React.Component {
           <Col>
             <div className="form-group">
               <p htmlFor="hostsToExposeInPercents">
-                How many people ignore quarantine (<strong>{this.props.hostIgnoreQuarantineInPercents}%</strong>)
+                Average amount of contacts for person (<strong>{this.props.hostContacts} contacts</strong>)
               </p>
     
               <input
                 type="range"
                 className="form-control custom-range"
-                min="0.5"
-                max="100"
-                step="0.5"
-                value={this.props.hostIgnoreQuarantineInPercents}
+                min="1"
+                max="10"
+                step="1"
+                value={this.props.hostContacts}
                 onChange={(e) => {
-                  this.props.setHostsIgnoreQuarantine(e.target.value);
+                  this.props.setHostContacts(e.target.value);
                 }}
                 id="hostsToExposeInPercents"
               />
