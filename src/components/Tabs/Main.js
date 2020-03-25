@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import PlotStatusByTime from "./PlotStatusByTime";
+// import TreeMapStatus from "./TreeMapStatus";
 
 class Main extends React.Component {
   render() {
@@ -15,6 +16,9 @@ class Main extends React.Component {
               <li>People wash hands <strong>sometimes</strong></li>
               <li>At the beginning <strong>{this.props.hostsToExposeInPercents}%</strong> of population is infected</li>
               <li>Each person is in contact with a maximum of <strong>{this.props.hostContacts} people</strong> per day</li>
+              <li>Incubation period lasts <strong>{this.props.exposeDuration} days</strong></li>
+              <li>Disease duration is <strong>{this.props.infectDuration} days</strong></li>
+              <li>Chance of recovery is <strong>{this.props.recoverChance}%</strong></li>
             </ul>
           </Col>
         </Row>

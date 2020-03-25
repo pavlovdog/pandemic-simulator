@@ -5,6 +5,10 @@ import {
   hosts,
 } from '../actions/action-types';
 
+import {
+  randomChoice
+} from "../utils/common";
+
 
 const sphereKnn = require("sphere-knn");
 const lookup = sphereKnn(Hosts.map(host => [host.lat, host.lng]));
@@ -12,6 +16,16 @@ const lookup = sphereKnn(Hosts.map(host => [host.lat, host.lng]));
 
 function getRandomArbitrary(min, max) {
   return Math.round(Math.random() * (max - min) + min);
+}
+
+function washHandsChance(washHandsStatus) {
+  const washHandsChance = {
+    'never': 0.9,
+    'sometimes': 0.6,
+    'regularly': 0.3,
+  };
+  
+  return Math.random() < washHandsChance[washHandsStatus];
 }
 
 
@@ -41,8 +55,15 @@ const hostsReducer = (state = [], action) => {
       return initializeHostsState();
     case (hosts.EXPOSE):
       newState = [...state];
-      
-      action.ids.map(id => newState[id].status = 1);
+  
+      const hostIds = [...Array(state.length).keys()];
+  
+      const hostIdsToInfect = randomChoice(
+        hostIds,
+        parseInt(action.hostsToExposeInPercents * state.length / 100, 10),
+      );
+  
+      hostIdsToInfect.map(id => newState[id].status = 1);
       
       return newState;
     case (hosts.EXPOSE_INFECT_SUSCEPTIBLE):
@@ -56,7 +77,8 @@ const hostsReducer = (state = [], action) => {
         
         neighboursIds.map(id => {
           if (newState[id].status !== 0) return null;
-
+          if (!washHandsChance(action.washHands)) return null;
+          
           newState[id].status = 1;
           newState[id].step = action.simulationStep;
         });
@@ -67,22 +89,32 @@ const hostsReducer = (state = [], action) => {
     case (hosts.EXPOSE_BECOME_INFECTED):
       newState = [...state];
       
-      // console.log(action.simulationStep, state[2]);
-      
       // Choose all exposed
       state.map((host, index) => {
         if (host.status !== 1) return null;
         
-        // if (host.step === 0) console.log(action, host);
-  
-        // console.log(host.step, action.simulationStep);
-  
         if (action.simulationStep - host.step >= action.exposeDuration) {
-          // console.log(action.simulationStep, host);
           newState[index].status = 2;
+          newState[index].step = action.simulationStep;
         }
       });
       
+      return newState;
+    case (hosts.INFECTED_RECOVER_OR_DIE):
+      newState = [...state];
+      
+      state.map((host, index) => {
+        if (host.status !== 2 || action.simulationStep - host.step < action.infectDuration) {
+          return null;
+        }
+        
+        if (Math.random() < action.recoverChance) {
+          newState[index].status = 3;
+        } else {
+          newState[index].status = 4;
+        }
+      });
+  
       return newState;
     default:
       return state;

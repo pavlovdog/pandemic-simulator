@@ -32,7 +32,7 @@ class Map extends React.Component {
             getRadius: d => 10,
             radiusScale: 1,  // make the dots visible or darker background
             radiusMinPixels: 1, // make the dots visible or darker background
-            radiusMaxPixels: 100,
+            radiusMaxPixels: 1000,
           }),
         ]}
         controller={true}

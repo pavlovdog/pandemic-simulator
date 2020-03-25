@@ -1,11 +1,11 @@
 import React from 'react';
 import {
-  XYPlot,
   XAxis,
   YAxis,
   LineSeries,
   HorizontalGridLines,
   VerticalGridLines,
+  FlexibleWidthXYPlot,
 } from 'react-vis';
 
 import 'react-vis/dist/style.css';
@@ -20,18 +20,18 @@ const statusManager = new StatusManager();
 class PlotStatusByTime extends React.Component {
   render() {
     return (
-      <XYPlot width={500} height={200} styl={{paddingLeft: '40px'}}>
-        <HorizontalGridLines style={{stroke: '#B7E9ED'}} />
-        <VerticalGridLines style={{stroke: '#B7E9ED'}} />
+      <FlexibleWidthXYPlot height={400} style={{marginTop: '50px', marginBottom: '50px' }}>
+        <HorizontalGridLines style={{ stroke: '#B7E9ED' }} />
+        <VerticalGridLines style={{ stroke: '#B7E9ED' }} />
       
         <XAxis
-          title="X Axis"
+          title="Time"
           style={{
             line: {
-              stroke: '#ADDDE1'
+              stroke: '#6b6b76'
             },
             ticks: {
-              stroke: '#ADDDE1',
+              stroke: '#6b6b76',
             },
             text: {
               stroke: 'none',
@@ -40,7 +40,7 @@ class PlotStatusByTime extends React.Component {
             }
           }}
         />
-        <YAxis title="Y Axis" />
+        <YAxis title="People" tickPadding={1}/>
       
       
         {
@@ -55,7 +55,7 @@ class PlotStatusByTime extends React.Component {
             })
         }
     
-      </XYPlot>
+      </FlexibleWidthXYPlot>
     );
   }
 }

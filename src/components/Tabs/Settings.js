@@ -15,18 +15,48 @@ class Settings extends React.Component {
               <label>How often people wash the hands  </label>
   
               <div className="custom-control custom-checkbox">
-                <input type="checkbox" className="custom-control-input" id="customCheck1"/>
-                <label className="custom-control-label" htmlFor="customCheck1">Never</label>
+                <input
+                  checked={this.props.washHands === 'never'}
+                  onChange={(e) => this.props.setWashHands(e.target.value)}
+                  value={'never'}
+                  type="radio"
+                  name="washHands"
+                  className="custom-control-input"
+                  id="washHandsNever"/>
+
+                <label
+                  className="custom-control-label"
+                  htmlFor="washHandsNever">Never</label>
               </div>
   
               <div className="custom-control custom-checkbox">
-                <input type="checkbox" className="custom-control-input" id="customCheck2"/>
-                <label className="custom-control-label" htmlFor="customCheck2">Sometimes</label>
+                <input
+                  checked={this.props.washHands === 'sometimes'}
+                  onChange={(e) => this.props.setWashHands(e.target.value)}
+                  value={'sometimes'}
+                  type="radio"
+                  name="washHands"
+                  className="custom-control-input"
+                  id="washHandsSometimes"/>
+
+                <label
+                  className="custom-control-label"
+                  htmlFor="washHandsSometimes">Sometimes</label>
               </div>
   
               <div className="custom-control custom-checkbox">
-                <input type="checkbox" className="custom-control-input" id="customCheck3"/>
-                <label className="custom-control-label" htmlFor="customCheck3">Regularly</label>
+                <input
+                  checked={this.props.washHands === 'regularly'}
+                  onChange={(e) => this.props.setWashHands(e.target.value)}
+                  value={'regularly'}
+                  type="radio"
+                  name="washHands"
+                  className="custom-control-input"
+                  id="washHandsRegularly"/>
+
+                <label
+                  className="custom-control-label"
+                  htmlFor="washHandsRegularly">Regularly</label>
               </div>
             </div>
           </Col>
@@ -36,7 +66,7 @@ class Settings extends React.Component {
           <Col>
             <div className="form-group">
               <label htmlFor="hostsToExposeInPercents">
-                How many people exposed at the beggining (<strong>{this.props.hostsToExposeInPercents}%</strong>)
+                How many people infected at the beginning (<strong>{this.props.hostsToExposeInPercents}%</strong>)
               </label>
     
               <input
@@ -53,6 +83,9 @@ class Settings extends React.Component {
                 id="hostsToExposeInPercents"
               />
   
+              <small className="form-text text-muted">
+                These people have no idea they are infected and will infect healthy people.
+              </small>
             </div>
           </Col>
         </Row>
@@ -99,7 +132,60 @@ class Settings extends React.Component {
                 }}
                 id="hostsToExposeInPercents"
               />
-      
+  
+              <small className="form-text text-muted">
+                How long a patient has no symptoms. During this period, the person can infect healthy people.
+              </small>
+            </div>
+          </Col>
+        </Row>
+  
+        <Row>
+          <Col>
+            <div className="form-group">
+              <label htmlFor="infectDuration">
+                Disease duration (<strong>{this.props.infectDuration} days</strong>)
+              </label>
+        
+              <input
+                type="range"
+                className="form-control custom-range"
+                min="1"
+                max="10"
+                step="1"
+                value={this.props.infectDuration}
+                onChange={(e) => {
+                  this.props.setInfectDuration(e.target.value);
+                }}
+                id="infectDuration"
+              />
+  
+              <small className="form-text text-muted">
+                After this period, the patient will recover or die.
+              </small>
+            </div>
+          </Col>
+        </Row>
+  
+        <Row>
+          <Col>
+            <div className="form-group">
+              <label htmlFor="infectDuration">
+                Chance of recovery (<strong>{this.props.recoverChance}%</strong>)
+              </label>
+        
+              <input
+                type="range"
+                className="form-control custom-range"
+                min="0.01"
+                max="1"
+                step="0.01"
+                value={this.props.recoverChance}
+                onChange={(e) => {
+                  this.props.setRecoverChance(e.target.value);
+                }}
+                id="infectDuration"
+              />
             </div>
           </Col>
         </Row>

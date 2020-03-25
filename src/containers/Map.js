@@ -1,8 +1,6 @@
 import React from 'react';
 import Map from './../components/Map';
 
-import { initializeHosts } from './../actions/hosts';
-
 import { connect } from 'react-redux';
 
 
@@ -24,15 +22,11 @@ class MapContainer extends React.Component {
     return {
       longitude,
       latitude,
-      zoom: 3,
+      zoom: 4,
       pitch: 30,
       minZoom: 1,
       maxZoom: 15,
     };
-  }
-  
-  componentDidMount() {
-    this.props.dispatch(initializeHosts());
   }
   
   render() {

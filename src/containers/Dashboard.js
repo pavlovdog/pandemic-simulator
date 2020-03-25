@@ -1,19 +1,21 @@
 import React from 'react';
 
-import { connect } from 'react-redux';
+import {
+  connect,
+  batch,
+} from 'react-redux';
 
 import {
   exposeHosts,
   initializeHosts,
   exposeInfectSusceptible,
   exposeBecomeInfect,
+  infectedRecoverOrDie,
 } from "../actions/hosts";
 
 
 import Dashboard from './../components/Dashboard';
 import { StatusManager } from "../config";
-
-import { randomChoice } from "../utils/common";
 
 
 const statusManager = new StatusManager();
@@ -25,9 +27,12 @@ class DashboardContainer extends React.Component {
     
     this.state = {
       hostsToExposeInPercents: 2,
-      hostContacts: 5,
+      hostContacts: 8,
       exposeDuration: 5,
       statusCounter: this.getInitialStatusCounter(),
+      infectDuration: 4,
+      recoverChance: 0.7,
+      washHands: 'sometimes',
     };
     
     this.simulationStep = 0;
@@ -51,15 +56,8 @@ class DashboardContainer extends React.Component {
   }
   
   exposeHosts() {
-    const hostIds = [...Array(this.props.hosts.length).keys()];
-    
-    const hostIdsToInfect = randomChoice(
-      hostIds,
-      parseInt(this.state.hostsToExposeInPercents * this.props.hosts.length / 100, 10),
-    );
-
     this.props.dispatch(initializeHosts());
-    this.props.dispatch(exposeHosts(hostIdsToInfect));
+    this.props.dispatch(exposeHosts(this.state.hostsToExposeInPercents));
   }
   
   setHostsToExpose(hostsToExposeInPercents) {
@@ -81,6 +79,24 @@ class DashboardContainer extends React.Component {
     this.setState({
       exposeDuration: parseInt(exposeDuration),
     })
+  }
+  
+  setInfectDuration(infectDuration) {
+    this.setState({
+      infectDuration: parseInt(infectDuration),
+    })
+  }
+  
+  setRecoverChance(recoverChance) {
+    this.setState({
+      recoverChance: parseFloat(recoverChance),
+    })
+  }
+  
+  setWashHands(washHands) {
+    this.setState({
+      washHands,
+    });
   }
   
   endSimulation() {
@@ -109,7 +125,7 @@ class DashboardContainer extends React.Component {
           y: statusCounter,
         }
       ];
-    
+      
       return prevState;
     });
   }
@@ -125,7 +141,7 @@ class DashboardContainer extends React.Component {
 
     setInterval(
       () => this.updateStatusCounter(),
-      500,
+      200,
     );
   }
   
@@ -139,12 +155,15 @@ class DashboardContainer extends React.Component {
 
     this.simulationInterval = setInterval(
       () => {
-        this.props.dispatch(exposeInfectSusceptible(this.state.hostContacts, this.simulationStep));
-        this.props.dispatch(exposeBecomeInfect(10, this.simulationStep));
+        batch(() => {
+          this.props.dispatch(exposeInfectSusceptible(this.state.hostContacts, this.simulationStep, this.state.washHands));
+          this.props.dispatch(exposeBecomeInfect(10, this.simulationStep));
+          this.props.dispatch(infectedRecoverOrDie(5, 0.1, this.simulationStep));
+        });
         
         this.simulationStep++;
       },
-      1000,
+      500,
     );
   }
   
@@ -157,6 +176,12 @@ class DashboardContainer extends React.Component {
       setHostContacts={(value) => this.setHostContacts(value)}
       exposeDuration={this.state.exposeDuration}
       setExposeDuration={(value) => this.setExposeDuration(value)}
+      infectDuration={this.state.infectDuration}
+      setInfectDuration={(value) => this.setInfectDuration(value)}
+      recoverChance={this.state.recoverChance}
+      setRecoverChance={(value) => this.setRecoverChance(value)}
+      washHands={this.state.washHands}
+      setWashHands={(value) => this.setWashHands(value)}
       startSimulation={() => this.startSimulation()}
       resetSimulation={() => this.resetSimulation()}
       statusCounter={this.state.statusCounter}

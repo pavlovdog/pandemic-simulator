@@ -18,18 +18,18 @@ class Details extends React.Component {
             </thead>
             <tbody>
             <tr>
-              <th scope="row" className="bg-success">Susceptible</th>
+              <th scope="row" className="bg-success">Healthy</th>
               <td>Healthy, never been infected before.</td>
             </tr>
     
             <tr>
-              <th scope="row" className="bg-danger">Exposed</th>
+              <th scope="row" className="bg-danger">Infected</th>
               <td>These are carriers of the virus. Travels a lot, don't know about their illness. Infects healthy people.</td>
             </tr>
     
             <tr>
-              <th scope="row" className="bg-warning">Infected</th>
-              <td>Diagnosed with virus, isolated in the hospitals. Can't infect no more.</td>
+              <th scope="row" className="bg-warning">Hospitalized</th>
+              <td>Diagnosed with virus, isolated in the hospitals. Can't infect.</td>
             </tr>
     
             <tr>
