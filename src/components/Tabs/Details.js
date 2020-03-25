@@ -39,7 +39,7 @@ class Details extends React.Component {
     
             <tr>
               <th scope="row" className="bg-dark">Dead</th>
-              <td>💀 💀 💀</td>
+              <td><span img="role">💀 💀 💀</span></td>
             </tr>
             </tbody>
           </table>

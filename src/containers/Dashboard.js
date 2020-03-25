@@ -31,11 +31,12 @@ class DashboardContainer extends React.Component {
       exposeDuration: 5,
       statusCounter: this.getInitialStatusCounter(),
       infectDuration: 4,
-      recoverChance: 0.7,
+      recoverChance: 7,
       washHands: 'sometimes',
     };
     
     this.simulationStep = 0;
+    this.iterationFrequency = 100;
   }
   
   getInitialStatusCounter() {
@@ -141,7 +142,7 @@ class DashboardContainer extends React.Component {
 
     setInterval(
       () => this.updateStatusCounter(),
-      200,
+      this.iterationFrequency,
     );
   }
   
@@ -158,12 +159,12 @@ class DashboardContainer extends React.Component {
         batch(() => {
           this.props.dispatch(exposeInfectSusceptible(this.state.hostContacts, this.simulationStep, this.state.washHands));
           this.props.dispatch(exposeBecomeInfect(10, this.simulationStep));
-          this.props.dispatch(infectedRecoverOrDie(5, 0.1, this.simulationStep));
+          this.props.dispatch(infectedRecoverOrDie(5, this.state.recoverChance / 100, this.simulationStep));
         });
         
         this.simulationStep++;
       },
-      500,
+      this.iterationFrequency,
     );
   }
   

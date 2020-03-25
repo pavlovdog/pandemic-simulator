@@ -124,7 +124,7 @@ class Settings extends React.Component {
                 type="range"
                 className="form-control custom-range"
                 min="1"
-                max="10"
+                max="100"
                 step="1"
                 value={this.props.exposeDuration}
                 onChange={(e) => {
@@ -151,7 +151,7 @@ class Settings extends React.Component {
                 type="range"
                 className="form-control custom-range"
                 min="1"
-                max="10"
+                max="100"
                 step="1"
                 value={this.props.infectDuration}
                 onChange={(e) => {
@@ -177,9 +177,9 @@ class Settings extends React.Component {
               <input
                 type="range"
                 className="form-control custom-range"
-                min="0.01"
-                max="1"
-                step="0.01"
+                min="1"
+                max="100"
+                step="0.1"
                 value={this.props.recoverChance}
                 onChange={(e) => {
                   this.props.setRecoverChance(e.target.value);

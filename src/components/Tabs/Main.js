@@ -27,14 +27,14 @@ class Main extends React.Component {
             <button
               className="btn btn-primary btn-block"
               onClick={() => this.props.startSimulation()}
-            >Start pandemic</button>
+            ><span role='img'>▶</span>️ Run pandemic</button>
           </Col>
   
           <Col>
             <button
               className="btn btn-primary btn-block"
               onClick={() => this.props.resetSimulation()}
-            >Reset</button>
+            ><span role='img'>🔄</span> Reset</button>
           </Col>
         </Row>
         
