@@ -32,7 +32,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Switch>
-        <Route exact path="/">
+        <Route basename={process.env.PUBLIC_URL} exact path="/">
           <Landing/>
         </Route>
         <Route path="/app">

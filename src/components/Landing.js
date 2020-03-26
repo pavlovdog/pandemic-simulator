@@ -11,16 +11,27 @@ function Landing(props) {
           <div className="ht-tm-header">
             <div className="row">
               <div className="col-xl-6">
-                <h1 className="display-2">Emulate virus pandemic</h1>
+                <h1 className="display-2">Pandemic simulator</h1>
                 <div className="lead mb-3 text-mono text-success">
                   { props.virus }
                 </div>
+
+                <p className="mt-5 text-grey text-spacey">
+                  Simulate virus pandemic without eating a bat. This app can demonstrate you the answers questions about pandemics:
+                </p>
+                
+                <ul>
+                  <li>Where it is safest during an epidemic?</li>
+                  <li>Does handwashing help keep the virus from spreading?</li>
+                  <li>Why quarantine is so important?</li>
+                </ul>
                 
                 <p className="mt-5 text-grey text-spacey">
-                  Neon Glow is a free and open source Bootstrap theme.
-                  It was built on top of the Bootstrap 4.
-                  Only the leetest of hackers will be able to wield its power.
-                  Scroll down to explore the components and dive into the source.
+                  This tool does not claim to be of scientific value, but it demonstrates well how the virus can spread in different ways depending on our behavior. Also, currently only USA map is supported. Tweet me to add your country.
+                </p>
+                
+                <p className="mt-5 text-grey text-spacey">
+                  #stayhome
                 </p>
                 
                 <div className="text-mono">
@@ -28,6 +39,9 @@ function Landing(props) {
                      className="btn btn-primary btn-shadow px-3 my-2 ml-0 text-left"
                   >Run emulation</a>
                 </div>
+              </div>
+              <div className="col-xl-6" style={{paddingTop: '10vh'}}>
+                <img src="/demo.gif" alt=""/>
               </div>
             </div>
           </div>
