@@ -30,7 +30,7 @@ class Dashboard extends React.Component {
       <Container>
         <Row style={separator}>
           <Col>
-            <h1>Pandemic simulator</h1>
+            <h1><a href="/">Pandemic simulator</a> 💀💉</h1>
           </Col>
         </Row>
 
