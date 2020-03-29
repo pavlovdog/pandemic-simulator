@@ -12,7 +12,7 @@ import 'react-vis/dist/style.css';
 
 import './../../../node_modules/react-vis/dist/style.css';
 
-import { StatusManager } from "../../config";
+import { StatusManager } from "./../../utils/status-manager";
 
 const statusManager = new StatusManager();
 

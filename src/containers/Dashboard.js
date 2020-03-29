@@ -15,7 +15,7 @@ import {
 
 
 import Dashboard from './../components/Dashboard';
-import { StatusManager } from "../config";
+import { StatusManager } from "./../utils/status-manager";
 
 
 const statusManager = new StatusManager();

@@ -9,7 +9,7 @@ import {
   ScatterplotLayer,
 } from '@deck.gl/layers';
 
-import { StatusManager } from './../config';
+import { StatusManager } from './../utils/status-manager';
 
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoicGF2bG92ZG9nIiwiYSI6ImNrN2N6eXJiZjA1Njcza3FrM2htN2t0MzUifQ.RemVD_DxbR4XpAvxDjy_hQ';
 const statusManager = new StatusManager();

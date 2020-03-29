@@ -18,7 +18,7 @@ function Landing(props) {
                 </div>
 
                 <p className="mt-5 text-grey text-spacey">
-                  Simulate virus pandemic without eating a bat. This app can demonstrate you the answers for simple questions about pandemics:
+                  Simulate virus pandemic in your browser. This app can demonstrate you the answers for simple questions about pandemics:
                 </p>
                 
                 <ul>
