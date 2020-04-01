@@ -100,7 +100,7 @@ class Settings extends React.Component {
                 type="range"
                 className="form-control custom-range"
                 min="1"
-                max="10"
+                max="30"
                 step="1"
                 value={this.props.hostContacts}
                 onChange={(e) => {
