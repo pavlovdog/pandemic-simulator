@@ -14,11 +14,12 @@ export const exposeHosts = (hostsToExposeInPercents) => ({
 });
 
 
-export const exposeInfectSusceptible = (averageHostContacts, simulationStep, washHands) => ({
+export const exposeInfectSusceptible = (averageHostContacts, simulationStep, washHands, transmissionProbability) => ({
   type: hosts.EXPOSE_INFECT_SUSCEPTIBLE,
   averageHostContacts,
   simulationStep,
   washHands,
+  transmissionProbability,
 });
 
 

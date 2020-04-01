@@ -18,14 +18,14 @@ function getRandomArbitrary(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 
-function washHandsChance(washHandsStatus) {
+function washHandsChance(washHandsStatus, transmissionProbability) {
   const washHandsChance = {
-    'never': 0.9,
-    'sometimes': 0.6,
-    'regularly': 0.3,
+    'never': 1,
+    'sometimes': 0.8,
+    'regularly': 0.5,
   };
   
-  return Math.random() < washHandsChance[washHandsStatus];
+  return Math.random() < (transmissionProbability * washHandsChance[washHandsStatus]);
 }
 
 
@@ -77,7 +77,7 @@ const hostsReducer = (state = [], action) => {
         
         neighboursIds.map(id => {
           if (newState[id].status !== 0) return null;
-          if (!washHandsChance(action.washHands)) return null;
+          if (!washHandsChance(action.washHands, action.transmissionProbability)) return null;
           
           newState[id].status = 1;
           newState[id].step = action.simulationStep;

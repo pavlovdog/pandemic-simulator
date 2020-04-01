@@ -61,7 +61,34 @@ class Settings extends React.Component {
             </div>
           </Col>
         </Row>
+  
+        <Row>
+          <Col>
+            <div className="form-group">
+              <label htmlFor="hostsToExposeInPercents">
+                The transmission probability of the virus (<strong>{this.props.transmissionProbability}%</strong>)
+              </label>
         
+              <input
+                type="range"
+                className="form-control custom-range"
+                min="0.5"
+                max="100"
+                step="0.5"
+                value={this.props.transmissionProbability}
+                onChange={(e) => {
+                  this.props.setTransmissionProbability(e.target.value);
+                }}
+                id="hostsToExposeInPercents"
+              />
+        
+              <small className="form-text text-muted">
+                For COVID-19 it's equal to 4%.
+              </small>
+            </div>
+          </Col>
+        </Row>
+  
         <Row>
           <Col>
             <div className="form-group">

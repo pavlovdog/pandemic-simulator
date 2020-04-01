@@ -26,12 +26,13 @@ class DashboardContainer extends React.Component {
     super(props);
     
     this.state = {
-      hostsToExposeInPercents: 2,
+      hostsToExposeInPercents: 0.5,
       hostContacts: 8,
-      exposeDuration: 5,
+      exposeDuration: 14,
+      transmissionProbability: 4,
       statusCounter: this.getInitialStatusCounter(),
-      infectDuration: 4,
-      recoverChance: 7,
+      infectDuration: 14,
+      recoverChance: 98.5,
       washHands: 'sometimes',
     };
     
@@ -79,6 +80,12 @@ class DashboardContainer extends React.Component {
   setExposeDuration(exposeDuration) {
     this.setState({
       exposeDuration: parseInt(exposeDuration),
+    })
+  }
+  
+  setTransmissionProbability(transmissionProbability) {
+    this.setState({
+      transmissionProbability: parseFloat(transmissionProbability),
     })
   }
   
@@ -157,7 +164,7 @@ class DashboardContainer extends React.Component {
     this.simulationInterval = setInterval(
       () => {
         batch(() => {
-          this.props.dispatch(exposeInfectSusceptible(this.state.hostContacts, this.simulationStep, this.state.washHands));
+          this.props.dispatch(exposeInfectSusceptible(this.state.hostContacts, this.simulationStep, this.state.washHands, this.state.transmissionProbability));
           this.props.dispatch(exposeBecomeInfect(10, this.simulationStep));
           this.props.dispatch(infectedRecoverOrDie(5, this.state.recoverChance / 100, this.simulationStep));
         });
@@ -183,6 +190,8 @@ class DashboardContainer extends React.Component {
       setRecoverChance={(value) => this.setRecoverChance(value)}
       washHands={this.state.washHands}
       setWashHands={(value) => this.setWashHands(value)}
+      transmissionProbability={this.state.transmissionProbability}
+      setTransmissionProbability={(value) => this.setTransmissionProbability(value)}
       startSimulation={() => this.startSimulation()}
       resetSimulation={() => this.resetSimulation()}
       statusCounter={this.state.statusCounter}
